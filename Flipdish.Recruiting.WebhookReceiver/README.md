@@ -1,11 +1,25 @@
-# recruiting
+We are happy you're interested in an engineering position at Flipdish!
 
-Function of the application: Receive a Flipdish order.created webhook, transform into an email and use the menu elements metadata to read and display barcodes.
+### About This Challenge
+We want to see how you construct software, but we also know that you're busy. So, rather than ask you to build something from scratch, we want you to take whatever time is reasonable and refactor some of the code in this application. Just make it better, in literally any way that you see fit.
 
-Test at local environment:
-POST the TestWebhooks\1.json files body to https://{localhost}/api/WebhookReceiver?to=john.doe@mail.com&to=jane.doe@mail.com&currency=eur&metadatakey=eancode&storeId=1234&storeId=12345
-parameters:
-- to: email address where to send the mail (can add multiple)
-- currency: currency to be displayed in the mail
-- metadatakey: metadata key for the EAN code (case sensitive)
-- storeid: store identifiers control which stores orders we want to process (can add multiple)
+It doesn't matter how long you spend on improving it! You could spend 5 minutes, or 5 hours -- the amount of time is totally up to you. It'll really help us understand your perspectives on software when we see how you improve existing code that you haven't encountered before. Feel free to refactor, change, improve, or optimize any part of the application at all.
+
+### About The Application
+The application sets up a webhook which listens for order creation messages. Once a message is received on that webhook, it transforms it into an email that includes barcode images for items that have the code defined as metadata.
+
+#### Testing the application 
+In your local environment, simply POST the contents of `TestWebhooks\1.json` to `https://{localhost}/api/WebhookReceiver?to=john.doe@mail.com&to=jane.doe@mail.com&currency=eur&metadatakey=eancode&storeId=1234&storeId=12345`.
+
+The parameters are as follows:
+- `to` - email address where to send the mail (can add multiple)
+- `currency` - currency to be displayed in the mail
+- `metadatakey` - metadata key for the EAN code (case sensitive)
+- `storeid` - store identifiers control which stores orders we want to process (can add multiple)
+
+### Also...
+* The application is deliberately written to be "not very clean code". It should not be viewed as representative of acceptable code at Flipdish (it isn't).
+* There is no SMTP service configured in the application code. If you would like to set one up yourself to see the email get sent, feel free to do so. If you don't have an SMTP service configured, an HTML email will be created locally (although it won't get delivered anywhere).
+* This README is deliberately sparse, so you'll have to read the code to truly understand what the application does.
+* Please keep track of the amount of time you do spend working on cleaning this code up. We'll want to know this when we review your solution, because it'll help us set our expectations appropriately.
+* When you have created a solution, just zip it up and send it back to us. Please don't submit a Pull Request to this repository because it will become visible for other candidates to see.
