@@ -1,0 +1,58 @@
+﻿<tr>
+  <td align="center" valign="top" class="fix-box" style="background-color: rgb(236, 235, 235);">
+    <!-- start  container width 600px -->
+    <table width="800" align="center" border="0" cellspacing="0" cellpadding="0" class="container"
+            style="border-bottom-width: 1px; 
+                border-bottom-style: solid; 
+                border-bottom-color: rgb(199, 199, 199); 
+                padding-top: 20px;
+                padding-bottom: 20px;
+                padding-left: 20px; 
+                padding-right: 20px; 
+                min-width: 600px; 
+                background-color: rgb(255, 255, 255);
+                font-size: 18px; line-height: 22px; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: 300; text-align: left;">
+      <tbody>
+        <tr>
+          <td valign="top">
+            <!-- start container width 560px -->
+            <table width="760" align="center" border="0" cellspacing="0" class="full-width" line-height="22px">
+              <tr style="height: 30px;">
+                <th style="width: 90%;"></th>
+                <th style="width: 10%;"></th>
+              </tr>
+              {{ itemsPart }}
+              <!--start space height -->
+              <tr>
+                <td height="15" style="line-height: 1px; font-size: 1px; display: block;"></td>
+              </tr>
+              <!--end space height -->
+              {% if chefNote != null and chefNote != '' %}
+              <tr>
+                <td colspan="2" style="font-size: 15px; line-height: 24px;">
+                  {{ resChefNotes }}: <b>{{ chefNote }}</b>
+                </td>
+              </tr>
+              {% endif %}
+              {% if customerPickupLocation != null and customerPickupLocation != '' %}
+              <tr>
+                <td colspan="2" style="font-size: 24px; line-height: 24px; color: red;">
+                  {{ customerLocationLabel }}: <b>{{ customerPickupLocation }}</b>
+                </td>
+              </tr>
+              {% endif %}
+              {% if amendmentMsg != null and amendmentMsg != '' %}
+              <tr>
+                <td colspan="2" style="color: rgb(255, 0, 0); font-size: 18px; font-weight: bold; line-height: 24px;">{{ amendmentMsg }}</td>
+              </tr>
+              {% endif %}
+            </table>
+            <!-- end  container width 560px -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- end  container width 600px -->
+  </td>
+</tr>
+

@@ -1,0 +1,82 @@
+﻿<table border="0" cellspacing="0" cellpadding="0" align="left">
+  <tbody>
+    <tr>
+      <td style="font-size: 18px; line-height: 22px; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: 300; text-align: left;">
+        <div style="text-align: left; line-height: 24px;">
+          <span style="font-size: 18px; font-weight: 300; line-height: 24px;">
+            <span style="font-style: italic; font-size: inherit; line-height: 24px;">
+              <b>{{ customerName }}</b>
+            </span>
+            <br style="line-height: 24px;"/>
+            <b>{{ deliveryLocationAddressString }}</b>
+            <br style="line-height: 24px;"/>
+          </span>
+        </div>
+      </td>
+    </tr>
+    <!--start space height -->
+    <tr>
+      <td height="15" style="line-height: 1px; font-size: 1px; display: block;"></td>
+    </tr>
+    <!--end space height -->
+    {% if isDelivery %}
+    <tr>
+      <td style="font-size: 13px; line-height: 22px; font-family: Roboto, Arial, Helvetica, sans-serif; font-weight: 300; text-align: left;">
+        <div style="text-align: left; line-height: 24px;">
+          <span style="font-size: 15px; font-weight: 300; line-height: 24px;">
+            {{ resDelivery_Instructions }}: <b>{{ deliveryInstructions }}</b>
+          </span>
+        </div>
+      </td>
+    </tr>
+    {% endif %}
+    <!--start space height -->
+    <tr>
+      <td height="20" style="line-height: 1px; font-size: 1px; display: block;"></td>
+    </tr>
+    <!--end space height -->
+    <!-- start button text -->
+    <tr>
+      <td valign="top">
+        <table align="left" border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <td valign="top">
+                <table align="left" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td style="font-size: 18px; line-height: 24px; font-family: Roboto, Arial, Helvetica, sans-serif; color: rgb(208, 93, 104); font-weight: 300; text-align: center;">
+                        <span style="font-weight: bold;">
+                          <span style="">{{ phoneNumber }}</span>
+                          <br style="line-height: 24px;"/>
+                        </span>
+                      </td>
+                      <td style="padding-left: 5px;" align="left" valign="middle">
+                        <img src="{{ domain }}Content/emails/images/20150702005705_phone-10x.png" width="15" alt="phone" style="max-width: 15px; display: block; height: auto !important; background-color: rgb(208, 93, 104);" border="0" hspace="0" vspace="0"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!--[if (gte mso 9)|(IE)]></td><td valign="top"><![endif]-->
+                <table width="20" align="left" border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td valign="top"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <!--start space height -->
+            <tr>
+              <td height="10" style="line-height: 1px; font-size: 1px; display: block;"></td>
+            </tr>
+            <!--end space height -->
+          </tbody>
+        </table>
+      </td>
+    </tr>
+    <!-- end button text -->
+  </tbody>
+</table>
+

@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\flipcode\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj": {}
+    "C:\\git\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj": {}
   },
   "projects": {
-    "D:\\flipcode\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj": {
+    "C:\\git\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\flipcode\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj",
+        "projectUniqueName": "C:\\git\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj",
         "projectName": "FlipdishInterview.Web",
-        "projectPath": "D:\\flipcode\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj",
-        "packagesPath": "C:\\Users\\abieg\\.nuget\\packages\\",
-        "outputPath": "D:\\flipcode\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\obj\\",
+        "projectPath": "C:\\git\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\FlipdishInterview.Web.csproj",
+        "packagesPath": "C:\\Users\\Tamas Kovacs\\.nuget\\packages\\",
+        "outputPath": "C:\\git\\recruiting\\FlipdishInterview\\FlipdishInterview.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\abieg\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\Tamas Kovacs\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

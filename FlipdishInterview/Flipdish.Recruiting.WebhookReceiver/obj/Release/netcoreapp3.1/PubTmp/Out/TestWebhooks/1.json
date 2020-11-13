@@ -1,0 +1,203 @@
+﻿{
+  "EventName": "order.created",
+  "Description": "2709304 placed a delivery order (#24952494) for €39.76 with Dunnes Stores - Cornelscourt.",
+  "OrderCreatedTime": "2020-11-08T19:54:57.035Z",
+  "Order": {
+    "Store": {
+      "Id": 8632,
+      "Name": "Dunnes Stores - Cornelscourt",
+      "MenuId": 50152,
+      "Metadata": {},
+      "Currency": "EUR",
+      "Coordinates": {
+        "Latitude": 53.266449,
+        "Longitude": -6.16082
+      },
+      "StoreTimezone": "GMT Standard Time",
+      "StoreGroupId": 9414
+    },
+    "Customer": {
+      "Id": 2709304,
+      "Name": "GIO",
+      "EmailAddress": null,
+      "PhoneNumberLocalFormat": "0879235635",
+      "PhoneNumber": "+353879235635"
+    },
+    "Voucher": null,
+    "Fees": null,
+    "OrderItems": [
+      {
+        "OrderItemOptions": [],
+        "Metadata": {
+          "Barcode": "978020137962"
+        },
+        "MenuItemPublicId": "3a2ddd3b-f0b8-4fab-a346-f2862c4a030a",
+        "MenuSectionName": "FRUIT",
+        "MenuSectionDisplayOrder": 1,
+        "Name": "307. Avocado 2 Pack 340g",
+        "Description": "Price per kg: €8.82",
+        "Price": 3,
+        "PriceIncludingOptionSetItems": 3,
+        "MenuItemId": 3581403,
+        "MenuItemDisplayOrder": 1,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {
+          "Barcode": "978020137962"
+        },
+        "MenuItemPublicId": "3a2ddd3b-f0b8-4fab-a346-f2862c4a030a",
+        "MenuSectionName": "FRUIT",
+        "MenuSectionDisplayOrder": 1,
+        "Name": "307. Avocado 2 Pack 340g",
+        "Description": "Price per kg: €8.82",
+        "Price": 3,
+        "PriceIncludingOptionSetItems": 3,
+        "MenuItemId": 3581403,
+        "MenuItemDisplayOrder": 1,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {
+          "Barcode": "978020137962"
+        },
+        "MenuItemPublicId": "9ac2ce54-e1b6-4134-92e7-0e2e57b55ff9",
+        "MenuSectionName": "FRUIT",
+        "MenuSectionDisplayOrder": 1,
+        "Name": "96. Dunnes Stores Mixed Grape Punnet 500g",
+        "Description": "Price per kg: €5.98",
+        "Price": 2.99,
+        "PriceIncludingOptionSetItems": 2.99,
+        "MenuItemId": 3581399,
+        "MenuItemDisplayOrder": 6,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {},
+        "MenuItemPublicId": "5be26aec-056f-40ce-ab4b-fccf26cf3737",
+        "MenuSectionName": "FRUIT",
+        "MenuSectionDisplayOrder": 1,
+        "Name": "1011. Fyffes Bananas Fairtrade 5's",
+        "Description": null,
+        "Price": 1.79,
+        "PriceIncludingOptionSetItems": 1.79,
+        "MenuItemId": 3703513,
+        "MenuItemDisplayOrder": 14,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {},
+        "MenuItemPublicId": "cedfad43-1808-44e9-9587-9aedd32171b1",
+        "MenuSectionName": "FRUIT",
+        "MenuSectionDisplayOrder": 1,
+        "Name": "387. Dunnes Stores Blueberries 150g",
+        "Description": "Price per kg: €13.33",
+        "Price": 2,
+        "PriceIncludingOptionSetItems": 2,
+        "MenuItemId": 3581414,
+        "MenuItemDisplayOrder": 26,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {},
+        "MenuItemPublicId": "66f426a7-df89-4003-abf6-8aa075b81a76",
+        "MenuSectionName": "VEG",
+        "MenuSectionDisplayOrder": 2,
+        "Name": "308. Baby Spinach 150g",
+        "Description": "Price per kg: €9.93",
+        "Price": 1.49,
+        "PriceIncludingOptionSetItems": 1.49,
+        "MenuItemId": 3581258,
+        "MenuItemDisplayOrder": 25,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {},
+        "MenuItemPublicId": "7028af67-3975-4283-986d-1437acfe328e",
+        "MenuSectionName": "FISH & SEAFOOD",
+        "MenuSectionDisplayOrder": 7,
+        "Name": "128. Fresh Salmon Fillet 700g",
+        "Description": "Price per kg: €18.56\n\nContains: Fish.",
+        "Price": 11.99,
+        "PriceIncludingOptionSetItems": 11.99,
+        "MenuItemId": 3581269,
+        "MenuItemDisplayOrder": 2,
+        "IsAvailable": true
+      },
+      {
+        "OrderItemOptions": [],
+        "Metadata": {},
+        "MenuItemPublicId": "d2a30ed4-d5b3-4b35-b440-c46c2db89535",
+        "MenuSectionName": "FISH & SEAFOOD",
+        "MenuSectionDisplayOrder": 7,
+        "Name": "130. Wild Atlantic Prawns 400g",
+        "Description": "Price per kg: €25.00\nContains: Fish.",
+        "Price": 10,
+        "PriceIncludingOptionSetItems": 10,
+        "MenuItemId": 3581271,
+        "MenuItemDisplayOrder": 6,
+        "IsAvailable": true
+      }
+    ],
+    "DeliveryLocation": {
+      "Coordinates": {
+        "Latitude": 53.2978491,
+        "Longitude": -6.2022177
+      },
+      "Building": "93",
+      "Street": "Merrion Park, Merrion",
+      "Town": "Blackrock",
+      "PostCode": null,
+      "DeliveryInstructions": "Leave at the door",
+      "PrettyAddressString": "93, Merrion Park, Merrion, Blackrock"
+    },
+    "CustomerLocation": null,
+    "MaskedPhoneNumber": {
+      "IsEnabled": true,
+      "PhoneNumber": "+353768888700",
+      "Code": "15590423"
+    },
+    "DropOffLocationId": null,
+    "DropOffLocation": null,
+    "AcceptedFor": null,
+    "InFraudZone": false,
+    "UnusualHighValueOrder": false,
+    "RejectedByUserId": null,
+    "OrderId": 24952494,
+    "LocalOrderId": null,
+    "DeliveryType": "Delivery",
+    "PickupLocationType": "TakeOut",
+    "TableServiceCatagory": "Generic",
+    "TipAmount": 0,
+    "DeliveryAmount": 3,
+    "OrderItemsAmount": 36.26,
+    "Amount": 39.76,
+    "ProcessingFee": 0.5,
+    "PaymentAccountType": "Card",
+    "PaymentAccountDescription": "Card ****9533",
+    "OrderState": "ReadyToProcess",
+    "IsPreOrder": true,
+    "PlacedTime": "2020-11-08T19:54:32.877Z",
+    "RequestedForTime": "2020-11-09T13:00:00Z",
+    "ChefNote": null,
+    "AppType": "Web",
+    "UserRating": null,
+    "PaymentStatus": "Paid",
+    "RejectionReason": null,
+    "RefundedAmount": null,
+    "DeliveryTrackingStatus": "Unassigned",
+    "DriverId": null,
+    "TotalTax": 0,
+    "OrderTrackingCode": null
+  },
+  "FlipdishEventId": "6adb3548-0d2b-4991-94f5-78709af7b6a7",
+  "CreateTime": "2020-11-08T19:54:57.035Z",
+  "Position": 0,
+  "AppId": "fd6156"
+}
