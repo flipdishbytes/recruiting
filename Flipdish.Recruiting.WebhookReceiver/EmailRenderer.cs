@@ -452,7 +452,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
         {
             try
             {
-                var barcode = new Barcode(barcodeNumbers, showLabel: true, width: 120, height: 98, labelPosition: LabelPosition.BottomCenter);
+                var barcode = new Barcode(barcodeNumbers, showLabel: true, width: 130, height: 110, labelPosition: LabelPosition.BottomCenter);
 
                 var bytes = barcode.GetByteArray();
                 return new MemoryStream(bytes);

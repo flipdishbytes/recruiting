@@ -82,7 +82,14 @@ namespace Flipdish.Recruiting.WebhookReceiver
                 
                 var emailOrder = emailRenderer.RenderEmailOrder();
 
-                await EmailService.Send("", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
+                try
+                {
+                    await EmailService.Send("", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
+                }
+                catch(Exception ex)
+                {
+                    log.LogError(ex, $"Error occured during sending email for order #{orderId}");
+                }
 
                 log.LogInformation($"Email sent for order #{orderId}.", new { orderCreatedEvent.Order.OrderId });
 
