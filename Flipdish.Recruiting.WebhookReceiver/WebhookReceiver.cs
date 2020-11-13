@@ -55,10 +55,14 @@ namespace Flipdish.Recruiting.WebhookReceiver
                 {
                     foreach (var storeIdString in storeIdParams)
                     {
-                        if (int.TryParse(storeIdString, out int storeId))
+                        int storeId = 0;
+                        try 
                         {
-                            storeIds.Add(storeId);
+                            storeId = int.Parse(storeIdString);
                         }
+                        catch(Exception) {}
+                        
+                        storeIds.Add(storeId);
                     }
 
                     if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
@@ -76,7 +80,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
                     currency = (Currency)currencyObject;
                 }
 
-                var barcodeMetadataKey = req.Query["metadataKey"].FirstOrDefault() ?? "eancode";
+                var barcodeMetadataKey = req.Query["metadataKey"].First() ?? "eancode";
 
                 using EmailRenderer emailRenderer = new EmailRenderer(orderCreatedEvent.Order, orderCreatedEvent.AppId, barcodeMetadataKey, context.FunctionAppDirectory, log, currency);
                 
@@ -84,11 +88,11 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
                 try
                 {
-                    await EmailService.Send("", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
+                    EmailService.Send("", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
                 }
                 catch(Exception ex)
                 {
-                    log.LogError(ex, $"Error occured during sending email for order #{orderId}");
+                    log.LogError($"Error occured during sending email for order #{orderId}" + ex);
                 }
 
                 log.LogInformation($"Email sent for order #{orderId}.", new { orderCreatedEvent.Order.OrderId });
@@ -98,7 +102,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
             catch(Exception ex)
             {
                 log.LogError(ex, $"Error occured during processing order #{orderId}");
-                throw;
+                throw ex;
             }
         }
     }
