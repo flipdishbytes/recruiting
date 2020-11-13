@@ -19,7 +19,6 @@ The parameters are as follows:
 
 ### Also...
 * The application is deliberately written to be "not very clean code". It should not be viewed as representative of acceptable code at Flipdish (it isn't).
-* There is no SMTP service configured in the application code. If you would like to set one up yourself to see the email get sent, feel free to do so. If you don't have an SMTP service configured, an HTML email will be created locally (although it won't get delivered anywhere).
 * This README is deliberately sparse, so you'll have to read the code to truly understand what the application does.
 * Please keep track of the amount of time you do spend working on cleaning this code up. We'll want to know this when we review your solution, because it'll help us set our expectations appropriately.
 * When you have created a solution, just zip it up and send it back to us. Please don't submit a Pull Request to this repository because it will become visible for other candidates to see.
