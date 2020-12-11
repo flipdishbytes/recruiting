@@ -22,5 +22,17 @@ The parameters are as follows:
 * This README is deliberately sparse, so you'll have to read the code to truly understand what the application does.
 * There is no SMTP service configured in the application code. If you would like to set one up yourself to see the email get sent, feel free to do so. If you don't have an SMTP service configured, an HTML email will be created locally (although it won't get delivered anywhere).
 * Please keep track of the amount of time you do spend working on cleaning this code up. We'll want to know this when we review your solution, because it'll help us set our expectations appropriately.
-* When you have created a solution, just zip it up and send it back to us. Please don't submit a Pull Request to this repository because it will become visible for other candidates to see.
-* In your final submission, please make sure to include a description of what you changed (similar to what you'd include in an informative commit message or Pull Request for the same changes). It can be hard for us to just read diffs in your code, so please help us understand what changes you made, and why.
+
+### Submitting your work
+* We work each day in GitHub, so we want to review your code in GitHub too. However, please do NOT submit a Pull Request to this repository because it will become visible for other candidates (or even your current employer) to see your work.
+* Instead, please do the following:
+  - Create a [private repository](https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-repository-visibility) under your own GitHub account.
+  - Commit all of the code from this repository to the `master`branch in your new private repository as a starting point.
+  - Create a new branch in your private repository.
+  - Commit your changes and refactoring work to the new branch.
+  - Create a [Pull Request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) based on your branch.
+  - Invite the GitHub user `flipdish-reviewers` to be a [collaborator](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) on your private repository.
+  - Email to let us know that the PR is ready for review by our team.
+  
+Good luck with the assignment, and have fun with it!
+* Please make sure to include a description of what you changed in the PR, and how long you spent on the work. 
