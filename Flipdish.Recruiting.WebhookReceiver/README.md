@@ -31,8 +31,8 @@ The parameters are as follows:
   - Create a new branch in your private repository.
   - Commit your changes and refactoring work to the new branch.
   - Create a [Pull Request](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) based on your branch.
+  - Include a description of what you changed in the Pull Request, and how long you spent on the work. 
   - Invite the GitHub user `flipdish-reviewers` to be a [collaborator](https://docs.github.com/en/free-pro-team@latest/github/setting-up-and-managing-your-github-user-account/inviting-collaborators-to-a-personal-repository) on your private repository.
   - Email to let us know that the PR is ready for review by our team.
   
 Good luck with the assignment, and have fun with it!
-* Please make sure to include a description of what you changed in the PR, and how long you spent on the work. 
