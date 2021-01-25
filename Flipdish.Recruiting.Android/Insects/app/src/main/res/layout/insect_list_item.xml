@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground">
+
+    <ie.flipdish.challenge.views.DangerLevelView
+        android:id="@+id/dangerLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/background_danger"
+        android:gravity="center"
+        android:textColor="@color/danger_level_text"
+        android:layout_marginStart="@dimen/bg_danger_level_margin_start"
+        android:layout_marginTop="@dimen/bg_danger_level_margin_top"
+        android:layout_marginLeft="@dimen/bg_danger_level_margin_start" />
+
+     <TextView
+         android:id="@+id/commonName"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:textAppearance="@android:style/TextAppearance.Large"
+         android:layout_marginStart="@dimen/common_name_text_margin_start"
+         android:layout_alignTop="@+id/dangerLevel"
+         android:layout_toEndOf="@+id/dangerLevel"
+         android:layout_marginLeft="@dimen/common_name_text_margin_start"
+         android:layout_toRightOf="@+id/dangerLevel" />
+
+    <TextView
+        android:id="@+id/scientificName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Medium"
+        android:layout_below="@+id/commonName"
+        android:layout_alignStart="@+id/commonName"
+        android:layout_marginBottom="@dimen/scientficName_margin_botton"
+        android:layout_alignLeft="@+id/commonName" />
+
+
+</RelativeLayout>
