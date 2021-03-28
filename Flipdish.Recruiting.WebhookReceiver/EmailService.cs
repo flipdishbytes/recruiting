@@ -28,7 +28,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
                     mailMessage.To.Add(t);
                 }
             }
-            foreach(var nameAndStreamPair in attachements)
+            foreach (var nameAndStreamPair in attachements)
             {
                 var attachment = new Attachment(nameAndStreamPair.Value, nameAndStreamPair.Key);
                 attachment.ContentId = nameAndStreamPair.Key;
@@ -37,9 +37,11 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
             using SmtpClient mailer = new SmtpClient
             {
-                Host = "",
-                //Port = 587,
-                Credentials = new System.Net.NetworkCredential("", "")
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                UseDefaultCredentials = false,
+                Credentials = new System.Net.NetworkCredential("beng.galvin@gmail.com", "*********")
             };
             await mailer.SendMailAsync(mailMessage);
         }

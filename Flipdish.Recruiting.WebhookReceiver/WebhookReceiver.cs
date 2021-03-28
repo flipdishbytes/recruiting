@@ -65,11 +65,11 @@ namespace Flipdish.Recruiting.WebhookReceiver
                         storeIds.Add(storeId);
                     }
 
-                    if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
-                    {
-                        log.LogInformation($"Skipping order #{orderId}");
-                        return new ContentResult { Content = $"Skipping order #{orderId}", ContentType = "text/html" };
-                    }
+                    //if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
+                    //{
+                    //    log.LogInformation($"Skipping order #{orderId}");
+                    //    return new ContentResult { Content = $"Skipping order #{orderId}", ContentType = "text/html" };
+                    //}
                 }
 
 
