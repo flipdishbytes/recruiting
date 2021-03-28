@@ -65,6 +65,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
                         storeIds.Add(storeId);
                     }
 
+                    //TODO: Put back in when I am finished
                     //if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
                     //{
                     //    log.LogInformation($"Skipping order #{orderId}");
@@ -82,7 +83,16 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
                 var barcodeMetadataKey = req.Query["metadataKey"].First() ?? "eancode";
 
-                using EmailRenderer emailRenderer = new EmailRenderer(orderCreatedEvent.Order, orderCreatedEvent.AppId, barcodeMetadataKey, context.FunctionAppDirectory, log, currency);
+
+                var orderItemStrategy = new OrderEmailMessageAggregate { 
+                    Currency = currency,
+                    AppId = orderCreatedEvent.AppId,
+                    FunctionAppDirectory = context.FunctionAppDirectory,
+                    BarcodeMetaDataKey = barcodeMetadataKey,
+                    Order = orderCreatedEvent.Order
+                };
+
+                using EmailRenderer emailRenderer = new EmailRenderer(orderItemStrategy, log);
                 
                 var emailOrder = emailRenderer.RenderEmailOrder();
 

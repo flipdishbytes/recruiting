@@ -114,43 +114,7 @@ namespace Flipdish.Recruiting.WebhookReceiver.Helpers
 
             return ci;
         }
-
-        public static string GetTableServiceCategoryLabel(this Order.TableServiceCatagoryEnum tableServiceCatagory)
-        {
-            string result;
-            switch (tableServiceCatagory)
-            {
-                case Order.TableServiceCatagoryEnum.Generic:
-                    result = "Generic Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.Villa:
-                    result = "Villa Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.House:
-                    result = "House Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.Room:
-                    result = "Room Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.Area:
-                    result = "Area Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.Table:
-                    result = "Table Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.ParkingBay:
-                    result = ".Parking Bay Service n ";
-                    break;
-                case Order.TableServiceCatagoryEnum.Gate:
-                    result = "Gate Service n ";
-                    break;
-                default:
-                    result = ">";
-                    break;
-            }
-
-            return result;
-        }
+                
         public static DateTime UtcToLocalTime(this DateTime utcTime, string timeZoneInfoId)
         {
             // Getting strange exceptions when we have invalid times, near hour changes. 

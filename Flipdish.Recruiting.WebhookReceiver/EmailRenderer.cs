@@ -1,7 +1,9 @@
 ﻿using DotLiquid;
+using Flipdish.Recruiting.WebhookReceiver.Extensions;
 using Flipdish.Recruiting.WebhookReceiver.Helpers;
 using Flipdish.Recruiting.WebhookReceiver.Models;
 using Flipdish.Recruiting.WebhookReceiver.Service;
+using Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates;
 using Flipdish.Recruiting.WebhookReciever.BuildingBlocks.Builder;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,25 +20,30 @@ namespace Flipdish.Recruiting.WebhookReceiver
         private readonly Order _order;
         private readonly string _appNameId;
         private readonly string _appDirectory;
-        private readonly ILogger _log;
+		private readonly OrderEmailMessageAggregate _orderEmailMessageAggregate;
+		private readonly ILogger _log;
         private readonly Currency _currency;
         private readonly string _barcodeMetadataKey;
 
-        public EmailRenderer(Order order, string appNameId, string barcodeMetadataKey, string appDirectory, ILogger log, Currency currency)
+        public EmailRenderer(OrderEmailMessageAggregate orderEmailMessageAggregate, ILogger log)
         {
-            _order = order;
-            _appNameId = appNameId;
-            _barcodeMetadataKey = barcodeMetadataKey;
-            _appDirectory = appDirectory;
-            _log = log;
-            _currency = currency;
+            //TODO: maybe fix this and also add fluent validations to orderEmailMessageAggregate
+            _orderEmailMessageAggregate = orderEmailMessageAggregate ?? throw new ArgumentNullException(nameof(orderEmailMessageAggregate));
+            _order = orderEmailMessageAggregate.Order;
+            _appNameId = orderEmailMessageAggregate.AppId;
+            _barcodeMetadataKey = orderEmailMessageAggregate.BarcodeMetaDataKey;
+            _appDirectory = orderEmailMessageAggregate.FunctionAppDirectory;
+            _currency = orderEmailMessageAggregate.Currency;
+			_log = log;
         }
 
         public string RenderEmailOrder()
         {
+            var strategy = new OrderItemsStrategy(new BarCodeService(), _orderEmailMessageAggregate);
+
             string preorder_partial = _order.IsPreOrder == true ? GetPreorderPartial() : null;
             string order_status_partial = GetOrderStatusPartial();
-            string order_items_partial = GetOrderItemsPartial();
+            string order_items_partial = strategy.GetTemplate(strategy.TemplateName);
             string customer_details_partial = GetCustomerDetailsPartial();
 
             string templateStr = GetLiquidFileAsString("RestaurantOrderDetail.liquid");
@@ -269,68 +276,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
             };
 
             return template.Render(paramaters); ;
-        }
-        private string GetOrderItemsPartial()
-        {
-            string templateStr = GetLiquidFileAsString("OrderItemsPartial.liquid");
-            Template template = Template.Parse(templateStr);
-
-            string chefNote = _order.ChefNote;
-
-            var orderEmailMessageAggregate = new OrderEmailMessageAggregate
-            {
-                AppId = _appNameId,
-                BarcodeMetaDataKey = _barcodeMetadataKey,
-                Currency = _currency,
-                Order = _order,
-                FunctionAppDirectory = _appDirectory
-            };
-
-            var itemsPart = ItemsPartBuilder
-                       .Start()
-                       .WithOrderEmailMessageAggregate(orderEmailMessageAggregate)
-                       .AddTableRowWithTitle(OrderItemConstants.Title)
-                       .WithMenuGroupSection(new BarCodeService()) //Add DI
-                       .Build();
-
-
-            string resSection = "Section";
-            string resItems = "Items";
-            string resOptions = "Options";
-            string resPrice = "Price";
-            string resChefNotes = "Chef Notes";
-
-            string customerLocationLabel = "Customer Location";
-
-            string customerPickupLocation = GetCustomerPickupLocationMessage();
-
-            var paramaters = new RenderParameters(CultureInfo.CurrentCulture)
-            {
-                LocalVariables = Hash.FromAnonymousObject(new
-                {
-                    chefNote,
-                    itemsPart,
-                    resSection,
-                    resItems,
-                    resOptions,
-                    resPrice,
-                    resChefNotes,
-                    customerLocationLabel,
-                    customerPickupLocation
-                })
-            };
-
-            return template.Render(paramaters);
-        }
-
-        private string GetCustomerPickupLocationMessage()
-        {
-            if (!_order.DropOffLocationId.HasValue || _order.PickupLocationType != Order.PickupLocationTypeEnum.TableService)
-                return null;
-
-            string tableServiceCategoryMessage = _order.TableServiceCatagory.Value.GetTableServiceCategoryLabel();
-            return $"{tableServiceCategoryMessage}: {_order.DropOffLocation}";
-        }
+        }       
 
         private string GetCustomerDetailsPartial()
         {
