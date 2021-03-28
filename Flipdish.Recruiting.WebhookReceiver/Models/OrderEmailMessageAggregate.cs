@@ -14,5 +14,7 @@ namespace Flipdish.Recruiting.WebhookReceiver.Models
 		public string AppId { get; internal set; }
 		public string BarcodeMetaDataKey { get; internal set; }
 		public string FunctionAppDirectory { get; internal set; }
+		public string From { get; internal set; }
+		public IEnumerable<string> To { get; internal set; }
 	}
 }

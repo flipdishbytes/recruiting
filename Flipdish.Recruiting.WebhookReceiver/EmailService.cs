@@ -1,6 +1,6 @@
 ﻿using Flipdish.Recruiting.WebhookReceiver.Models;
 using Flipdish.Recruiting.WebhookReceiver.Service;
-using Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates;
+using Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
@@ -62,7 +62,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
                 Port = 587,
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential("beng.galvin@gmail.com", "*******")
+                Credentials = new System.Net.NetworkCredential("", "") //Note: Temporarily Allow less secure apps: ON
             };
             await mailer.SendMailAsync(mailMessage);
         }

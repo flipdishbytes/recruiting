@@ -8,7 +8,7 @@ using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContan
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.FileConstants;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants.OrderItems;
 
-namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
+namespace Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates
 {
     /// <summary>
     /// Order Items Template Strategy <see cref="ILiquidTemplateStrategy"/>

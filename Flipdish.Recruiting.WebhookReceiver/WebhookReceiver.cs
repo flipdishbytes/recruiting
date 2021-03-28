@@ -1,23 +1,23 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Flipdish.Recruiting.WebhookReceiver.Models;
+using Flipdish.Recruiting.WebhookReceiver.Service;
+using Flipdish.Recruiting.WebhookReceiver.StateMachine;
+using Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Flipdish.Recruiting.WebhookReceiver.Models;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants;
-using Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates;
-using Flipdish.Recruiting.WebhookReceiver.Service;
-using Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates;
 
 namespace Flipdish.Recruiting.WebhookReceiver
 {
-    public static class WebhookReceiver
+	public static class WebhookReceiver
     {
         [FunctionName("WebhookReceiver")]
         public static async Task<IActionResult> Run(
@@ -67,12 +67,13 @@ namespace Flipdish.Recruiting.WebhookReceiver
 						storeIds.Add(storeId);
 					}
 
-					if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
-					{
-						log.LogInformation($"Skipping order #{orderId}");
-						return new ContentResult { Content = $"Skipping order #{orderId}", ContentType = "text/html" };
-					}
+					//if (!storeIds.Contains(orderCreatedEvent.Order.Store.Id.Value))
+					//{
+					//	log.LogInformation($"Skipping order #{orderId}");
+					//	return new ContentResult { Content = $"Skipping order #{orderId}", ContentType = "text/html" };
+					//}
 				}
+
 
 
 				#region refactor
@@ -85,42 +86,23 @@ namespace Flipdish.Recruiting.WebhookReceiver
 				///Construct (non-event rehydrated) Domain Aggregate 
 				var orderEmailMessageAggregate = new OrderEmailMessageAggregate //TODO: FluentValidations
 				{
+					From = "beng.galvin@gmail.com",
 					AppId = orderCreatedEvent.AppId,
 					BarcodeMetaDataKey = req.Query["metadataKey"].First() ?? "eancode",
 					FunctionAppDirectory = $"{ context.FunctionAppDirectory }/{ FileConstants.LiquidTemplates }",
 					Currency = currencyService.GetCurrencyFor(req.Query["currency"]),
-					Order = orderCreatedEvent.Order
+					Order = orderCreatedEvent.Order,
+					To = req.Query["to"]
 				};
-
-
-				///Build templates from liquid files
-				var preorder_partial = orderEmailMessageAggregate.Order.IsPreOrder == true ? emailService.GetEmailTemplateFor(new PreOrderStrategy(orderEmailMessageAggregate)) : null;
-				var order_status_partial = emailService.GetEmailTemplateFor(new OrderStatusStrategy(orderEmailMessageAggregate));
-				var order_items_partial = emailService.GetEmailTemplateFor(new OrderItemsStrategy(new BarCodeService(), orderEmailMessageAggregate));
-				var customer_details_partial = emailService.GetEmailTemplateFor(new CustomerDetailsStrategy(orderEmailMessageAggregate));
-				var restaurantPreTemplateAggregate = new RestaurantPreTemplateAggregate
-				{
-					PreOrderPartial = preorder_partial,
-					OrderStatusPartial = order_status_partial,
-					OrderItemsPartial = order_items_partial,
-					CustomerDetailsPartial = customer_details_partial,
-				};
-				var emailOrder = emailService.GetEmailTemplateFor(new RestaurantOrderDetailStrategy(orderEmailMessageAggregate, restaurantPreTemplateAggregate));
-
-
-				///Build Email Message
-				var emailMessage = new EmailMessage();
-				emailMessage.From = "beng.galvin@gmail.com";
-				emailMessage.To = req.Query["to"];
-				emailMessage.Subject = $"New Order #{orderId}";
-				emailMessage.Body = emailOrder;
-				emailMessage.Attachements = orderEmailMessageAggregate.ImagesWithNames;
-
-				await emailService.Send(emailMessage);
+								
+				var sendOrderEmailWorkflow = new SendOrderEmailWorkflow(new OrderEmailMessageAggregateState1(orderEmailMessageAggregate));
+				sendOrderEmailWorkflow.ConstructMail();
+				sendOrderEmailWorkflow.SendAsync();
+			
 				#endregion refactor
 
 				log.LogInformation($"Email sent for order #{orderId}.", new { orderCreatedEvent.Order.OrderId });
-				return new ContentResult { Content = emailOrder, ContentType = "text/html" };
+				return new ContentResult { Content = sendOrderEmailWorkflow.SendOrderEmailWorkFlowState.EmailOrder, ContentType = "text/html" };
 			}
 			catch (Exception ex)
             {

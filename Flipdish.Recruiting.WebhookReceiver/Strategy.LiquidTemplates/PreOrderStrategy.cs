@@ -5,7 +5,7 @@ using System.Globalization;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.FileConstants;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants.PreOrder;
 
-namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
+namespace Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates
 {
     /// <summary>
     /// Pre-Order Template Strategy <see cref="ILiquidTemplateStrategy"/>

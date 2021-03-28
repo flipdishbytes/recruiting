@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.FileConstants;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants.RestaurantOrderDetail;
 
-namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
+namespace Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates
 {
     /// <summary>
     /// Restaurant Order Detail Template Strategy <see cref="ILiquidTemplateStrategy"/>

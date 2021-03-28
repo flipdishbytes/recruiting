@@ -1,16 +1,15 @@
 ﻿using DotLiquid;
 using Flipdish.Recruiting.WebhookReceiver.Helpers;
 using Flipdish.Recruiting.WebhookReceiver.Models;
-using Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates;
 using System.Globalization;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.FileConstants;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants.CustomerDetails;
 
 namespace Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates
 {
-    /// <summary>
-    /// Customer Details Template Strategy <see cref="ILiquidTemplateStrategy"/>
-    /// </summary>
+	/// <summary>
+	/// Customer Details Template Strategy <see cref="ILiquidTemplateStrategy"/>
+	/// </summary>
 	class CustomerDetailsStrategy : ILiquidTemplateStrategy
     {
         public string TemplateName { get; }

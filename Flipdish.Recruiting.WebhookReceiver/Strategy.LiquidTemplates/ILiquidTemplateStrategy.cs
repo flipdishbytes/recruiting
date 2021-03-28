@@ -1,4 +1,4 @@
-﻿namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
+﻿namespace Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates
 {
     /// <summary>
     /// Strategy contract for Dotliquid templates
