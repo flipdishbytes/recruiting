@@ -6,10 +6,12 @@ namespace Flipdish.Recruiting.WebhookReceiver.StateMachine.OrderEmailWorkFlow
 	public class OrderEmailSendEmailState4 : SendOrderEmailWorkFlowState
 	{
 		private readonly EmailMessage _emailMessage;
+		private readonly IEmailService _emailService;
 
-		public OrderEmailSendEmailState4(EmailMessage emailMessage)
+		public OrderEmailSendEmailState4(EmailMessage emailMessage, IEmailService emailService)
 		{
 			_emailMessage = emailMessage;
+			_emailService = emailService;
 		}
 
 		public override void Handle()
@@ -19,7 +21,7 @@ namespace Flipdish.Recruiting.WebhookReceiver.StateMachine.OrderEmailWorkFlow
 
 		public async override Task HandleAsync()
 		{
-			await new EmailService(FileService).Send(_emailMessage);
+			await _emailService.SendAsync(_emailMessage);
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using Flipdish.Recruiting.WebhookReceiver.Models;
 using Flipdish.Recruiting.WebhookReceiver.Service;
 using Flipdish.Recruiting.WebhookReceiver.StateMachine;
+using Flipdish.Recruiting.WebhookReceiver.StateMachine.OrderEmailWorkFlow;
 using Flipdish.Recruiting.WebhookReceiver.Strategy.LiquidTemplates;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,27 @@ using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContan
 
 namespace Flipdish.Recruiting.WebhookReceiver
 {
-	public static class WebhookReceiver
+	public class WebhookReceiver
     {
+		private readonly IEmailService _emailService;
+		private readonly IBarCodeService _barCodeService;
+		private readonly ICurrencyService _currencyService;
+
+		public WebhookReceiver(IEmailService emailService,
+			IBarCodeService barCodeService,
+			ICurrencyService currencyService)
+		{
+			_emailService = emailService;
+			_barCodeService = barCodeService;
+			_currencyService = currencyService;
+		}
+
         [FunctionName("WebhookReceiver")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)] HttpRequest req,
-            ILogger log,
-            ExecutionContext context)
+			ILogger log,
+			ExecutionContext context
+			)
         {
             int? orderId = null;
             try
@@ -76,12 +91,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
 
 
-				#region refactor
-				///TODO: DI
-				var fileService = new FileService();
-				var emailService = new EmailService(fileService);
-				var barcodeService = new BarCodeService();
-				var currencyService = new CurrencyService();
+				#region refactor			
 
 				///Construct (non-event rehydrated) Domain Aggregate 
 				var orderEmailMessageAggregate = new OrderEmailMessageAggregate //TODO: FluentValidations
@@ -90,19 +100,23 @@ namespace Flipdish.Recruiting.WebhookReceiver
 					AppId = orderCreatedEvent.AppId,
 					BarcodeMetaDataKey = req.Query["metadataKey"].First() ?? "eancode",
 					FunctionAppDirectory = $"{ context.FunctionAppDirectory }/{ FileConstants.LiquidTemplates }",
-					Currency = currencyService.GetCurrencyFor(req.Query["currency"]),
+					Currency = _currencyService.GetCurrencyFor(req.Query["currency"]),
 					Order = orderCreatedEvent.Order,
 					To = req.Query["to"]
 				};
 								
-				var sendOrderEmailWorkflow = new SendOrderEmailWorkflow(new OrderEmailMessageAggregateState1(orderEmailMessageAggregate));
-				sendOrderEmailWorkflow.ConstructMail();
-				sendOrderEmailWorkflow.SendAsync();
-			
+				var sendOrderEmailWorkflow = new SendOrderEmailWorkflow();
+				sendOrderEmailWorkflow.TransitionTo(new OrderEmailMessageAggregateState1(_emailService, _barCodeService, orderEmailMessageAggregate));
+				sendOrderEmailWorkflow.Continue();
+				var state2 = sendOrderEmailWorkflow.WorkFlowState as OrderEmailGetTemplatesState2;
+				sendOrderEmailWorkflow.Continue();
+				sendOrderEmailWorkflow.Continue();
+				sendOrderEmailWorkflow.ContinueAsync();								
+
 				#endregion refactor
 
 				log.LogInformation($"Email sent for order #{orderId}.", new { orderCreatedEvent.Order.OrderId });
-				return new ContentResult { Content = sendOrderEmailWorkflow.SendOrderEmailWorkFlowState.EmailOrder, ContentType = "text/html" };
+				return new ContentResult { Content = state2.EmailOrder, ContentType = "text/html" };
 			}
 			catch (Exception ex)
             {

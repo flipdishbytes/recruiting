@@ -5,14 +5,11 @@ namespace Flipdish.Recruiting.WebhookReceiver.StateMachine
 {
 	public abstract class SendOrderEmailWorkFlowState
     {
-        protected SendOrderEmailWorkflow _sendOrderEmailWorkflow;
-        protected IFileService FileService { get; set; }
-        public string EmailOrder { get; protected set; }
-
+        protected SendOrderEmailWorkflow SendOrderEmailWorkflow;
 
         public void SetContext(SendOrderEmailWorkflow sendOrderEmailWorkflow)
         {
-            _sendOrderEmailWorkflow = sendOrderEmailWorkflow;
+            SendOrderEmailWorkflow = sendOrderEmailWorkflow;
         }
 
         public abstract void Handle();

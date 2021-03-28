@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Flipdish.Recruiting.WebhookReceiver
 {
-    internal class EmailService
+    public class EmailService : IEmailService
     {
 		private readonly IFileService _fileService;
 
@@ -23,12 +23,12 @@ namespace Flipdish.Recruiting.WebhookReceiver
             return liquidStrategy.GetTemplate(template);
         }
 
-        public async Task Send(EmailMessage emailMessage)
+        public async Task SendAsync(EmailMessage emailMessage)
         {
-            await Send(emailMessage.From, emailMessage.To, emailMessage.Subject, emailMessage.Body, emailMessage.Attachements, emailMessage.CC);
+            await SendAsync(emailMessage.From, emailMessage.To, emailMessage.Subject, emailMessage.Body, emailMessage.Attachements, emailMessage.CC);
         }
 
-        private static async Task Send(string from, IEnumerable<string> to, string subject, string body, Dictionary<string, Stream> attachements, IEnumerable<string> cc = null)
+        private static async Task SendAsync(string from, IEnumerable<string> to, string subject, string body, Dictionary<string, Stream> attachements, IEnumerable<string> cc = null)
         {
             using MailMessage mailMessage = new MailMessage
             {

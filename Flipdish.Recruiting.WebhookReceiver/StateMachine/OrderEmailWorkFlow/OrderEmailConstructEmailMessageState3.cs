@@ -8,11 +8,16 @@ namespace Flipdish.Recruiting.WebhookReceiver.StateMachine.OrderEmailWorkFlow
 	{
 		private readonly string _emailOrder;
 		private readonly OrderEmailMessageAggregate _orderEmailMessageAggregate;
+		private readonly IEmailService _emailService;
 
-		public OrderEmailConstructEmailMessageState3(string emailOrder, OrderEmailMessageAggregate orderEmailMessageAggregate)
+		public OrderEmailConstructEmailMessageState3(
+			string emailOrder,
+			OrderEmailMessageAggregate orderEmailMessageAggregate,
+			IEmailService emailService)
 		{
 			_emailOrder = emailOrder;
 			_orderEmailMessageAggregate = orderEmailMessageAggregate;
+			this._emailService = emailService;
 		}
 
 		public override void Handle()
@@ -24,8 +29,8 @@ namespace Flipdish.Recruiting.WebhookReceiver.StateMachine.OrderEmailWorkFlow
 			emailMessage.Body = _emailOrder;
 			emailMessage.Attachements = _orderEmailMessageAggregate.ImagesWithNames;
 
-			var state4 = new OrderEmailSendEmailState4(emailMessage);
-			_sendOrderEmailWorkflow.TransitionTo(state4);
+			var state4 = new OrderEmailSendEmailState4(emailMessage, _emailService);
+			SendOrderEmailWorkflow.TransitionTo(state4);
 		}
 
 		public override Task HandleAsync()

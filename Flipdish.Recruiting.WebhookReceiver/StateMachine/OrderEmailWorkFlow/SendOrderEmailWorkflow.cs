@@ -1,30 +1,23 @@
-﻿using System;
-
-namespace Flipdish.Recruiting.WebhookReceiver.StateMachine
+﻿namespace Flipdish.Recruiting.WebhookReceiver.StateMachine
 {
 	public class SendOrderEmailWorkflow
     {
-        public SendOrderEmailWorkFlowState SendOrderEmailWorkFlowState { get; private set; }
-
-        public SendOrderEmailWorkflow(SendOrderEmailWorkFlowState sendOrderEmailWorkFlowState)
-        {
-            TransitionTo(sendOrderEmailWorkFlowState);
-        }
+        public SendOrderEmailWorkFlowState WorkFlowState { get; private set; }
 
         public void TransitionTo(SendOrderEmailWorkFlowState sendOrderEmailWorkFlowState)
         {
-            SendOrderEmailWorkFlowState = sendOrderEmailWorkFlowState;
-            SendOrderEmailWorkFlowState.SetContext(this);
+            WorkFlowState = sendOrderEmailWorkFlowState;
+            WorkFlowState.SetContext(this);
         }
 
-        public void ConstructMail()
+        public void Continue()
         {
-            SendOrderEmailWorkFlowState.Handle();
+            WorkFlowState.Handle();
         }  
         
-        public void SendAsync()
+        public void ContinueAsync()
         {
-            SendOrderEmailWorkFlowState.HandleAsync();
+            WorkFlowState.HandleAsync();
         }
     }
 }
