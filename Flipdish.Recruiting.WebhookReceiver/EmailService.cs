@@ -41,7 +41,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
                 Port = 587,
                 EnableSsl = true,
                 UseDefaultCredentials = false,
-                Credentials = new System.Net.NetworkCredential("beng.galvin@gmail.com", "*********")
+                Credentials = new System.Net.NetworkCredential("beng.galvin@gmail.com", "*******")
             };
             await mailer.SendMailAsync(mailMessage);
         }

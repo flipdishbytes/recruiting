@@ -1,19 +1,19 @@
-﻿using System;
-using System.IO;
-using Microsoft.Extensions.Logging;
-using DotLiquid;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Globalization;
-using System.Text.RegularExpressions;
-using Flipdish.Recruiting.WebhookReceiver.Models;
+﻿using DotLiquid;
 using Flipdish.Recruiting.WebhookReceiver.Helpers;
-using NetBarcode;
+using Flipdish.Recruiting.WebhookReceiver.Models;
+using Flipdish.Recruiting.WebhookReceiver.Service;
+using Flipdish.Recruiting.WebhookReciever.BuildingBlocks.Builder;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text.RegularExpressions;
+using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants;
 
 namespace Flipdish.Recruiting.WebhookReceiver
 {
-    internal class EmailRenderer : IDisposable
+	internal class EmailRenderer : IDisposable
     {
         private readonly Order _order;
         private readonly string _appNameId;
@@ -276,7 +276,23 @@ namespace Flipdish.Recruiting.WebhookReceiver
             Template template = Template.Parse(templateStr);
 
             string chefNote = _order.ChefNote;
-            string itemsPart = GetItemsPart();
+
+            var orderEmailMessageAggregate = new OrderEmailMessageAggregate
+            {
+                AppId = _appNameId,
+                BarcodeMetaDataKey = _barcodeMetadataKey,
+                Currency = _currency,
+                Order = _order,
+                FunctionAppDirectory = _appDirectory
+            };
+
+            var itemsPart = ItemsPartBuilder
+                       .Start()
+                       .WithOrderEmailMessageAggregate(orderEmailMessageAggregate)
+                       .AddTableRowWithTitle(OrderItemConstants.Title)
+                       .WithMenuGroupSection(new BarCodeService()) //Add DI
+                       .Build();
+
 
             string resSection = "Section";
             string resItems = "Items";
@@ -351,153 +367,12 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
         public Dictionary<string, Stream> _imagesWithNames = new Dictionary<string, Stream>();
 
-        private string GetItemsPart()
-        {
-            StringBuilder itemsPart = new StringBuilder();
-
-            itemsPart.AppendLine("<tr>");
-            itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"top\" style=\"font-weight: bold;\">Order items</td>");
-            itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"top\"></td>");
-            itemsPart.AppendLine("</tr>");
-            itemsPart.AppendLine(GetSpaceDivider());
-            List<MenuSectionGrouped> sectionsGrouped = OrderHelper.GetMenuSectionGroupedList(_order.OrderItems, _barcodeMetadataKey);
-            var last = sectionsGrouped.Last();
-            foreach (var section in sectionsGrouped)
-            {
-                itemsPart.AppendLine("<tr>");
-                itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"top\" style=\"font-size: 14px;\">{section.Name.ToUpper()}</td>");
-                itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"top\" style=\"font-size: 14px;\"></td>");
-                itemsPart.AppendLine("</tr>");
-                itemsPart.AppendLine(GetLineDivider());
-                itemsPart.AppendLine(GetSpaceDivider());
-                foreach (MenuItemsGrouped item in section.MenuItemsGroupedList)
-                {
-                    itemsPart.AppendLine("<tr>");
-                    string countStr = item.Count > 1 ? $"{item.Count} x " : string.Empty;
-                    itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\" style=\"padding-left: 40px;\">{countStr}{item.MenuItemUI.Name}</td>");
-                    string itemPriceStr = item.MenuItemUI.Price.HasValue ? (item.MenuItemUI.Price.Value * item.Count).ToRawHtmlCurrencyString(_currency) : string.Empty;
-                    itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\">{itemPriceStr}</td>");
-
-                    if (!string.IsNullOrEmpty(item.MenuItemUI.Barcode))
-                    {
-                        Stream barcodeStream;
-
-                        if (_imagesWithNames.ContainsKey(item.MenuItemUI.Barcode + ".png"))
-                        {
-                            barcodeStream = _imagesWithNames[item.MenuItemUI.Barcode + ".png"];
-                        }
-                        else
-                        {
-                            barcodeStream = GetBase64EAN13Barcode(item.MenuItemUI.Barcode);
-                        }
-                        if (barcodeStream != null)
-                        {
-                            if (!_imagesWithNames.ContainsKey(item.MenuItemUI.Barcode + ".png"))
-                                _imagesWithNames.Add(item.MenuItemUI.Barcode + ".png", barcodeStream);
-
-                            itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\"><img style=\"margin-left: 14px;margin-left: 9px;padding-top: 10px; padding-bottom:10px\" src=\"cid:{item.MenuItemUI.Barcode}.png\"/></td>");
-                            if (item.Count > 1)
-                            {
-                                itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\" style=\"font-size:40px\">x</td>");
-                                itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\" style=\"font-size:50px\">{item.Count}</td>");
-                            }
-                        }
-                    }
-
-                    itemsPart.AppendLine("</tr>");
-
-                    foreach (MenuOption option in item.MenuItemUI.MenuOptions)
-                    {
-                        itemsPart.AppendLine("<tr>");
-                        itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\" style=\"padding-left: 40px;padding-top: 10px; padding-bottom:10px\">+ {option.Name}</td>");
-                        itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\">{(option.Price * item.Count).ToRawHtmlCurrencyString(_currency)}</td>");
-
-                        if (!string.IsNullOrEmpty(option.Barcode))
-                        {
-                            Stream barcodeStream;
-
-                            if (_imagesWithNames.ContainsKey(option.Barcode + ".png"))
-                            {
-                                barcodeStream = _imagesWithNames[option.Barcode + ".png"];
-                            }
-                            else
-                            {
-                                barcodeStream = GetBase64EAN13Barcode(option.Barcode);
-                            }
-                            if (barcodeStream != null)
-                            {
-                                if (!_imagesWithNames.ContainsKey(option.Barcode + ".png"))
-                                {
-                                    _imagesWithNames.Add(option.Barcode + ".png", barcodeStream);
-                                }
-                                itemsPart.AppendLine($"<td cellpadding=\"2px\" valign=\"middle\"><img style=\"margin-left: 14px;margin-left: 9px;padding-top: 10px; padding-bottom:10px\" src=\"cid:{option.Barcode}.png\"/></td>");
-                            }
-                        }
-
-                        itemsPart.AppendLine("</tr>");
-
-                    }
-                }
-
-                if (!section.Equals(last))
-                {
-                    itemsPart.AppendLine(GetSpaceDivider());
-                }
-            }
-
-            return itemsPart.ToString();
-        }
-
-        private Stream GetBase64EAN13Barcode(string barcodeNumbers)
-        {
-            try
-            {
-                var barcode = new Barcode(barcodeNumbers, showLabel: true, width: 130, height: 110, labelPosition: LabelPosition.BottomCenter);
-
-                var bytes = barcode.GetByteArray();
-                return new MemoryStream(bytes);
-            }
-            catch (Exception ex)
-            {
-                _log.LogError(ex, $"{barcodeNumbers} is not a valid barcode for order #{_order.OrderId}");
-                return null;
-            }
-        }
-
-        private string GetLineDivider()
-        {
-            StringBuilder result = new StringBuilder();
-
-            result.AppendLine("<tr>");
-            result.AppendLine("<td colspan=\"2\" align =\"center\" valign=\"top\">");
-            result.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"height: 1px; background-color: rgb(186, 186, 186);\">");
-            result.AppendLine("</table>");
-            result.AppendLine("</td>");
-            result.AppendLine("</tr>");
-
-            return result.ToString();
-        }
-
-        private string GetSpaceDivider()
-        {
-            StringBuilder result = new StringBuilder();
-
-            result.AppendLine("<tr>");
-            result.AppendLine("<td colspan=\"2\" align =\"center\" valign=\"top\">");
-            result.AppendLine("<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"height: 22px;\">");
-            result.AppendLine("</table>");
-            result.AppendLine("</td>");
-            result.AppendLine("</tr>");
-
-            return result.ToString();
-        }
-
         public void Dispose()
         {
             if (_imagesWithNames == null)
                 return;
 
-            foreach(var kvp in _imagesWithNames)
+            foreach (var kvp in _imagesWithNames)
             {
                 kvp.Value.Dispose();
             }

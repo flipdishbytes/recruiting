@@ -88,7 +88,7 @@ namespace Flipdish.Recruiting.WebhookReceiver
 
                 try
                 {
-                    await EmailService.Send("", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
+                    await EmailService.Send("beng.galvin@gmail.com", req.Query["to"], $"New Order #{orderId}", emailOrder, emailRenderer._imagesWithNames);
                 }
                 catch(Exception ex)
                 {
