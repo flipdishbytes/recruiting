@@ -4,12 +4,15 @@ using Flipdish.Recruiting.WebhookReceiver.Models;
 using Flipdish.Recruiting.WebhookReceiver.Service;
 using Flipdish.Recruiting.WebhookReciever.BuildingBlocks.Builder;
 using System.Globalization;
-using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants;
+using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.OrderItemConstants;
 using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.FileConstants;
-using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants;
+using static Flipdish.Recruiting.WebhookReceiver.Constants.WebhookRecieverContants.RenderParametersConstants.OrderItems;
 
 namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
 {
+    /// <summary>
+    /// Order Items Template Strategy <see cref="ILiquidTemplateStrategy"/>
+    /// </summary>
 	public class OrderItemsStrategy : ILiquidTemplateStrategy
 	{
 		private readonly IBarCodeService _barCodeService;
@@ -31,7 +34,7 @@ namespace Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates
             var itemsPart = ItemsPartBuilder
                             .Start()
                             .WithOrderEmailMessageAggregate(_orderEmailMessageAggregate)
-                            .AddTableRowWithTitle(OrderItemConstants.Title)
+                            .AddTableRowWithTitle(Title)
                             .WithMenuGroupSection(_barCodeService)
                             .Build();
 

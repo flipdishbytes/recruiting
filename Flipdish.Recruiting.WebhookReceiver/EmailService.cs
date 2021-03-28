@@ -1,13 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Flipdish.Recruiting.WebhookReceiver.Models;
+using Flipdish.Recruiting.WebhookReceiver.Service;
+using Flipdish.Recruiting.WebhookReceiver.StrategyLiquidTemplates;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace Flipdish.Recruiting.WebhookReceiver
 {
-    class EmailService
+    internal class EmailService
     {
-        public static async Task Send(string from, IEnumerable<string> to, string subject, string body, Dictionary<string, Stream> attachements, IEnumerable<string> cc = null)
+		private readonly IFileService _fileService;
+
+		public EmailService(IFileService fileService)
+		{
+			_fileService = fileService;
+		}
+
+        public string GetEmailTemplateFor(ILiquidTemplateStrategy liquidStrategy)
+        {
+            var template = _fileService.GetFileContents(liquidStrategy.Directory, liquidStrategy.TemplateName);
+            return liquidStrategy.GetTemplate(template);
+        }
+
+        public async Task Send(EmailMessage emailMessage)
+        {
+            await Send(emailMessage.From, emailMessage.To, emailMessage.Subject, emailMessage.Body, emailMessage.Attachements, emailMessage.CC);
+        }
+
+        private static async Task Send(string from, IEnumerable<string> to, string subject, string body, Dictionary<string, Stream> attachements, IEnumerable<string> cc = null)
         {
             using MailMessage mailMessage = new MailMessage
             {
