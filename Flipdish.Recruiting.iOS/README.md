@@ -1,43 +1,59 @@
 We are happy you're interested in an engineering position at Flipdish!
 
 ### About This Challenge
-We want to see how you construct software, but we also know that you're busy. So, rather than ask you to build something from scratch, we want you to take whatever time is reasonable and refactor some of the code in this application. Just make it better, in literally any way that you see fit.
+We want to see how you construct software, but we also know that you're busy. 
 
-It doesn't matter how long you spend on improving it! You could spend 5 minutes, or 5 hours -- the amount of time is totally up to you. It'll really help us understand your perspectives on software when we see how you improve existing code that you haven't encountered before. Feel free to refactor, change, improve, rewrite or optimize any part of the application at all.
+It doesn't matter how long you spend on it! You could spend 5 minutes, or 5 hours -- the amount of time is totally up to you. It'll really help us understand your perspectives on software when we see how you implement the solution.
 
-### About The app
-
-The app is a very simple List / Detail client for [The Dog API](https://docs.thedogapi.com/). It works (for the most part) but, as you'll quickly notice, the code has a lot of issues. Let's make it better!
-
-##### Functionality
-
-- The basic premise is to fetch a list of Dogs from the API, and render them in a list.
-- Each list item can be opened for a detail view and from there the user can choose their favourite Perros 🦮🐕‍🦺🐕🐩.
-- There's a section at the top of the list view with quick access to the user's favourited Dogs.
-
-See attached screenshots for how the app <em>should</em> look.
-
-![The List View](assets/list_view.png)
-
-![The Detail View](assets/detail_view.png)
-
-***
-
-##### Notes
-
-- Use any relevant third party libraries you wish, but please include your reasoning for doing so in your change description (see below for more details)
-- Feel free to add any additional functionality as, if and when you see fit.
-- Show off your skills and have some fun with it.
-
-#### Additional Info
-
-<em>The Dog API</em> API key: `081c16a8-75b7-44ae-b6db-9fd93bf68903`
+### iOS Coding Challenge
 
 
-### Also...
-* The application is deliberately written to be "not very clean code". It should not be viewed as representative of acceptable code at Flipdish (it isn't).
-* This README is deliberately sparse, so you'll have to read the code to truly understand what the application does.
-* Please keep track of the amount of time you do spend working on cleaning this code up. We'll want to know this when we review your solution, because it'll help us set our expectations appropriately.
+Congratulations on making it to the coding evaluation in our recruitment
+process and thank you for taking the time to participate. We realise you have
+options and are excited that you are considering joining our team. At Flipdish
+we use an example of your code as the basis for a technical discussion with
+our engineers. This gives you the opportunity to present yourself in the best
+light. We look forward to hearing and seeing how you solved the problem and
+why you chose the solution you did.
+Good luck!
+
+
+##### Render Flipdish restaurant menu
+
+Read the following description of the menu data object at Flipdish and create
+a solution that renders the menu on iOS. To facilitate easier evaluation by
+Flipdish engineers, our preference is for a Swift solution.
+- The restaurant menu object contains sections (such as Starters, Curries
+and Soft Drinks) and items within each section (such as Vegetable Spring
+Rolls, Massaman Curry and Coca Cola). See the data structure explanation
+below.
+- Choose a suitable layout and style to render your menu
+- At a minimum, your solution should display the menu item name and image.
+- Ideally it will show the description and price as well (if present).
+
+
+##### Data Structure
+
+
+The Flipdish menu combines the products
+(MenuSectionItems & MenuOptionSetItems) and layout in a single structure,
+knows as the Menu.
+The Menu is made up of MenuSections which contain MenuSectionItems.
+MenuSectionItems may be standalone or contain MenuItemOptionSets. Each
+MenuItemOptionSet will contain one or more MenuItemOptionSetItem.
+
+#### MenuItemOptionSets
+
+A MenuItemOptionSet contains a boolean flag named <em>IsMasterOptionSet</em>. This
+would be set to <em>true</em> for options that could be treated as standalone
+products, as opposed to additions to a product (eg. "Ketchup") or a
+modification to a product (eg. "large").
+When <em>IsMasterOptionSet</em> is set to true on a MenuItemOptionSet, the price of the
+menu item is calculated based on the MenuItemOptionSetItems in the
+MenuItemOptionSet, and the price set on the MenuSectionItem is ignored.
+
+#### Sample Menu...
+https://menus.flipdish.co/prod/16798/e6220da2-c34a-4ea2-bb51-a3e190fc5f08.json
 
 ### Submitting your work
 * We work each day in GitHub, so we want to review your code in GitHub too. However, please do NOT submit a Pull Request to this repository because it will become visible for other candidates (or even your current employer) to see your work.
