@@ -1,9 +1,9 @@
 We are happy you're interested in an engineering position at Flipdish!
 
 ### About This Challenge
-We want to see how you construct software, but we also know that you're busy. So, rather than ask you to build something from scratch, we want you to take whatever time is reasonable and refactor some of the code in this application. Just make it better, in literally any way that you see fit.
+We want to see how you construct software, but we also know that you're busy.
 
-It doesn't matter how long you spend on improving it! You could spend 5 minutes, or 5 hours -- the amount of time is totally up to you. It'll really help us understand your perspectives on software when we see how you improve existing code that you haven't encountered before. Feel free to refactor, change, improve, or optimize any part of the application at all.
+It doesn't matter how long you spend on it! You could spend 5 minutes, or 5 hours -- the amount of time is totally up to you. It'll really help us understand your perspectives on software when we see how you implement the solution.
 
 ### React Coding Challenge
 
