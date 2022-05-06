@@ -14,13 +14,6 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
-        private readonly ILogger<OrderController> _logger;
-
-        public OrderController(ILogger<OrderController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
         public string SendOrder(int orderId)
         {
@@ -44,7 +37,8 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Error sending email for order: {orderId}");
+                Console.WriteLine($"Error sending email for order: {orderId}");
+                Console.WriteLine(e);
             }
 
             return "Order Sent!";
