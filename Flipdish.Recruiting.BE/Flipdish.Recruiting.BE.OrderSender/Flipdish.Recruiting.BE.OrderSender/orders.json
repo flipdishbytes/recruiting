@@ -1,0 +1,62 @@
+﻿[
+  {
+    "OrderId": 1,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 22.32,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 2,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 12.66,
+    "TipAmount": 5.0
+  },
+  {
+    "OrderId": 3,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 126.51,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 4,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 64.389,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 5,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 40.00,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 6,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 39.21,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 7,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 25.00,
+    "TipAmount": 2.5
+  },
+  {
+    "OrderId": 8,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 27.00,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 9,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 242.99,
+    "TipAmount": 0.0
+  },
+  {
+    "OrderId": 10,
+    "RestaurantName": "Really Good Pizza Company",
+    "FoodAmount": 54.84,
+    "TipAmount": 0.0
+  }
+]

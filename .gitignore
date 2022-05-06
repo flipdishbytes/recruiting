@@ -2,3 +2,54 @@ FlipdishInterview/.vs/
 FlipdishInterview/obj/
 FlipdishInterview/bin/
 .vs/
+
+#Visual Studio files
+*.[Oo]bj
+*.user
+*.aps
+*.pch
+*.pdb
+*.vspscc
+*.vssscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.[Cc]ache
+*.ilk
+*.log
+*.lib
+*.sbr
+*.sdf
+*.opensdf
+*.unsuccessfulbuild
+*.sqlite
+ipch/
+[Oo]bj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
+Ankh.NoLoad
+
+#Tooling
+_ReSharper*/
+*.resharper
+[Tt]est[Rr]esult*
+*.sass-cache
+
+#Project files
+#[Bb]uild/
+
+# Visual Studio Code files
+.sonarqube
+.vscode
+.vs
+.idea
+*.orig
+
+# dotenv environment variables file
+.env
+.env.test

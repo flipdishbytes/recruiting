@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Flipdish.Recruiting.BE.OrderSender", "Flipdish.Recruiting.BE.OrderSender\Flipdish.Recruiting.BE.OrderSender.csproj", "{BAD2CABB-3180-4030-B0C3-6D3D59590B77}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BAD2CABB-3180-4030-B0C3-6D3D59590B77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAD2CABB-3180-4030-B0C3-6D3D59590B77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAD2CABB-3180-4030-B0C3-6D3D59590B77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAD2CABB-3180-4030-B0C3-6D3D59590B77}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
