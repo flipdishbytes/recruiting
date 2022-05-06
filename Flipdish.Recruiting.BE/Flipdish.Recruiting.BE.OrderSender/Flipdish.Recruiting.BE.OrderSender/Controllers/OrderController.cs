@@ -61,9 +61,7 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
         
         private decimal CalculateTax(Order order)
         {
-            decimal taxRate = 0.21m;
-            decimal total = order.FoodAmount + order.TipAmount;
-            return total * taxRate;
+            return (order.FoodAmount + order.TipAmount) * 0.21m;
         }
 
         private static void SendEmail(string from, IEnumerable<string> to, string subject, string body,
