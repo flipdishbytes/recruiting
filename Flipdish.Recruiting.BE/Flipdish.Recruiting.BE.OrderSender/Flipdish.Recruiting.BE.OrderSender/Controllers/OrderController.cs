@@ -17,10 +17,9 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
         [HttpGet]
         public string SendOrder(int orderId)
         {
-            Order order = GetOrder(orderId);
-            decimal taxAmount = CalculateTax(order);
+            Order order = Order.GetOrder(orderId);
+            decimal taxAmount = Order.CalculateTax(order);
             
-            // Send Email
             string emailSubject = $"Order Received for {order.RestaurantName}";
             string emailBody = $@"
                 OrderId: {order.OrderId}
@@ -33,7 +32,7 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
             
             try
             {
-                SendEmail("interview@flipdish.com", new[] { "to@flipdish.com" }, emailSubject, emailBody);
+                Order.SendEmail("interview@flipdish.com", new[] { "to@flipdish.com" }, emailSubject, emailBody);
             }
             catch (Exception e)
             {
@@ -43,8 +42,16 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
 
             return "Order Sent!";
         }
+    }
 
-        private Order GetOrder(int orderId)
+    public class Order
+    {
+        public int OrderId { get; set; }
+        public string RestaurantName { get; set; }
+        public decimal FoodAmount { get; set; }
+        public decimal TipAmount { get; set; }
+
+        public static Order GetOrder(int orderId)
         {
             StreamReader sr = new StreamReader("orders.json");
             string orderJson = sr.ReadToEnd();
@@ -52,13 +59,13 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
 
             return orders.Single(o => o.OrderId == orderId);
         }
-        
-        private decimal CalculateTax(Order order)
+
+        public static decimal CalculateTax(Order order)
         {
             return (order.FoodAmount + order.TipAmount) * 0.21m;
         }
 
-        private static void SendEmail(string from, IEnumerable<string> to, string subject, string body,
+        public static void SendEmail(string from, IEnumerable<string> to, string subject, string body,
             Dictionary<string, Stream> attachements = null, IEnumerable<string> cc = null)
         {
             var mailMessage = new MailMessage
@@ -98,13 +105,5 @@ namespace Flipdish.Recruiting.BE.OrderSender.Controllers
 
             mailer.Send(mailMessage);
         }
-    }
-
-    public class Order
-    {
-        public int OrderId { get; set; }
-        public string RestaurantName { get; set; }
-        public decimal FoodAmount { get; set; }
-        public decimal TipAmount { get; set; }
     }
 }
